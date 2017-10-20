@@ -1,0 +1,2 @@
+class ReadersGroupMember < ApplicationRecord
+end

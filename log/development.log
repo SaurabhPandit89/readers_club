@@ -1,0 +1,690 @@
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (24.2ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY) ENGINE=InnoDB[0m
+  [1m[35m (13.7ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateRoles (20171020095019)
+  [1m[35m (15.0ms)[0m  [1m[35mCREATE TABLE `roles` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255) NOT NULL, `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020095019')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20171020095127)
+  [1m[35m (16.4ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `first_name` varchar(255) NOT NULL, `middle_name` varchar(255), `last_name` varchar(255) NOT NULL, `email` varchar(255) NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (16.9ms)[0m  [1m[35mALTER TABLE `roles` ADD `users_id` bigint[0m
+  [1m[35m (13.1ms)[0m  [1m[35mCREATE  INDEX `index_roles_on_users_id`  ON `roles` (`users_id`) [0m
+  [1m[35m (16.9ms)[0m  [1m[35mALTER TABLE `roles` ADD CONSTRAINT `fk_rails_0a805a2d52`
+FOREIGN KEY (`users_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020095127')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGenres (20171020100240)
+  [1m[35m (16.9ms)[0m  [1m[35mCREATE TABLE `genres` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255) NOT NULL, `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020100240')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBooks (20171020100324)
+  [1m[35m (14.6ms)[0m  [1m[35mCREATE TABLE `books` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255) NOT NULL, `description` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (15.7ms)[0m  [1m[35mALTER TABLE `genres` ADD `books_id` bigint[0m
+  [1m[35m (13.7ms)[0m  [1m[35mCREATE  INDEX `index_genres_on_books_id`  ON `genres` (`books_id`) [0m
+  [1m[35m (20.5ms)[0m  [1m[35mALTER TABLE `genres` ADD CONSTRAINT `fk_rails_29c00d33a9`
+FOREIGN KEY (`books_id`)
+  REFERENCES `books` (`id`)
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020100324')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20171020100632)
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE TABLE `reviews` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `review_text` text NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (14.3ms)[0m  [1m[35mALTER TABLE `books` ADD `reviews_id` bigint[0m
+  [1m[35m (20.0ms)[0m  [1m[35mCREATE  INDEX `index_books_on_reviews_id`  ON `books` (`reviews_id`) [0m
+  [1m[35m (17.2ms)[0m  [1m[35mALTER TABLE `books` ADD CONSTRAINT `fk_rails_ea899841bd`
+FOREIGN KEY (`reviews_id`)
+  REFERENCES `reviews` (`id`)
+[0m
+  [1m[35m (17.4ms)[0m  [1m[35mALTER TABLE `users` ADD `reviews_id` bigint[0m
+  [1m[35m (20.8ms)[0m  [1m[35mCREATE  INDEX `index_users_on_reviews_id`  ON `users` (`reviews_id`) [0m
+  [1m[35m (23.4ms)[0m  [1m[35mALTER TABLE `users` ADD CONSTRAINT `fk_rails_24a691d525`
+FOREIGN KEY (`reviews_id`)
+  REFERENCES `reviews` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020100632')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRatings (20171020101551)
+  [1m[35m (15.8ms)[0m  [1m[35mCREATE TABLE `ratings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `rating_number` int, `rating_text` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020101551')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBookRatings (20171020101642)
+  [1m[35m (13.6ms)[0m  [1m[35mCREATE TABLE `book_ratings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `rating_comment` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (18.3ms)[0m  [1m[35mALTER TABLE `books` ADD `book_ratings_id` bigint[0m
+  [1m[35m (16.1ms)[0m  [1m[35mCREATE  INDEX `index_books_on_book_ratings_id`  ON `books` (`book_ratings_id`) [0m
+  [1m[35m (18.8ms)[0m  [1m[35mALTER TABLE `books` ADD CONSTRAINT `fk_rails_99424c5f48`
+FOREIGN KEY (`book_ratings_id`)
+  REFERENCES `book_ratings` (`id`)
+[0m
+  [1m[35m (18.9ms)[0m  [1m[35mALTER TABLE `ratings` ADD `book_ratings_id` bigint[0m
+  [1m[35m (13.3ms)[0m  [1m[35mCREATE  INDEX `index_ratings_on_book_ratings_id`  ON `ratings` (`book_ratings_id`) [0m
+  [1m[35m (26.5ms)[0m  [1m[35mALTER TABLE `ratings` ADD CONSTRAINT `fk_rails_8fd452e57c`
+FOREIGN KEY (`book_ratings_id`)
+  REFERENCES `book_ratings` (`id`)
+[0m
+  [1m[35m (18.7ms)[0m  [1m[35mALTER TABLE `users` ADD `book_ratings_id` bigint[0m
+  [1m[35m (13.4ms)[0m  [1m[35mCREATE  INDEX `index_users_on_book_ratings_id`  ON `users` (`book_ratings_id`) [0m
+  [1m[35m (21.1ms)[0m  [1m[35mALTER TABLE `users` ADD CONSTRAINT `fk_rails_51835f98c3`
+FOREIGN KEY (`book_ratings_id`)
+  REFERENCES `book_ratings` (`id`)
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020101642')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2017-10-20 10:20:15', '2017-10-20 10:20:15')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateBookRatings (20171020101642)
+  [1m[35m (13.0ms)[0m  [1m[35mALTER TABLE `users` DROP FOREIGN KEY fk_rails_51835f98c3[0m
+  [1m[35m (16.9ms)[0m  [1m[35mALTER TABLE `users` DROP `book_ratings_id`[0m
+  [1m[35m (11.8ms)[0m  [1m[35mALTER TABLE `ratings` DROP FOREIGN KEY fk_rails_8fd452e57c[0m
+  [1m[35m (16.9ms)[0m  [1m[35mALTER TABLE `ratings` DROP `book_ratings_id`[0m
+  [1m[35m (13.6ms)[0m  [1m[35mALTER TABLE `books` DROP FOREIGN KEY fk_rails_99424c5f48[0m
+  [1m[35m (20.4ms)[0m  [1m[35mALTER TABLE `books` DROP `book_ratings_id`[0m
+  [1m[35m (2.6ms)[0m  [1m[35mDROP TABLE `book_ratings`[0m
+  [1m[35mSQL (1.7ms)[0m  [1m[31mDELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20171020101642'[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateBookRatings (20171020101642)
+  [1m[35m (21.3ms)[0m  [1m[35mCREATE TABLE `book_ratings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `rating_comment` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (16.8ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD `books_id` bigint[0m
+  [1m[35m (13.8ms)[0m  [1m[35mCREATE  INDEX `index_book_ratings_on_books_id`  ON `book_ratings` (`books_id`) [0m
+  [1m[35m (16.4ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD CONSTRAINT `fk_rails_a41e38dd5f`
+FOREIGN KEY (`books_id`)
+  REFERENCES `books` (`id`)
+[0m
+  [1m[35m (17.9ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD `ratings_id` bigint[0m
+  [1m[35m (15.8ms)[0m  [1m[35mCREATE  INDEX `index_book_ratings_on_ratings_id`  ON `book_ratings` (`ratings_id`) [0m
+  [1m[35m (16.5ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD CONSTRAINT `fk_rails_95111ca541`
+FOREIGN KEY (`ratings_id`)
+  REFERENCES `ratings` (`id`)
+[0m
+  [1m[35m (19.9ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD `users_id` bigint[0m
+  [1m[35m (15.1ms)[0m  [1m[35mCREATE  INDEX `index_book_ratings_on_users_id`  ON `book_ratings` (`users_id`) [0m
+  [1m[35m (21.5ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD CONSTRAINT `fk_rails_50d9af1f31`
+FOREIGN KEY (`users_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020101642')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateBookRatings (20171020101642)
+  [1m[35m (15.2ms)[0m  [1m[35mALTER TABLE `book_ratings` DROP FOREIGN KEY fk_rails_50d9af1f31[0m
+  [1m[35m (20.1ms)[0m  [1m[35mALTER TABLE `book_ratings` DROP `users_id`[0m
+  [1m[35m (12.5ms)[0m  [1m[35mALTER TABLE `book_ratings` DROP FOREIGN KEY fk_rails_95111ca541[0m
+  [1m[35m (16.6ms)[0m  [1m[35mALTER TABLE `book_ratings` DROP `ratings_id`[0m
+  [1m[35m (14.8ms)[0m  [1m[35mALTER TABLE `book_ratings` DROP FOREIGN KEY fk_rails_a41e38dd5f[0m
+  [1m[35m (16.6ms)[0m  [1m[35mALTER TABLE `book_ratings` DROP `books_id`[0m
+  [1m[35m (2.3ms)[0m  [1m[35mDROP TABLE `book_ratings`[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[31mDELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20171020101642'[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateRatings (20171020101551)
+  [1m[35m (3.1ms)[0m  [1m[35mDROP TABLE `ratings`[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20171020101551'[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateReviews (20171020100632)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (16.0ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY) ENGINE=InnoDB[0m
+  [1m[35m (12.8ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateRoles (20171020095019)
+  [1m[35m (14.3ms)[0m  [1m[35mCREATE TABLE `roles` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255) NOT NULL, `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020095019')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20171020095127)
+  [1m[35m (13.1ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `first_name` varchar(255) NOT NULL, `middle_name` varchar(255), `last_name` varchar(255) NOT NULL, `email` varchar(255) NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (14.2ms)[0m  [1m[35mALTER TABLE `users` ADD `roles_id` bigint[0m
+  [1m[35m (12.1ms)[0m  [1m[35mCREATE  INDEX `index_users_on_roles_id`  ON `users` (`roles_id`) [0m
+  [1m[35m (19.7ms)[0m  [1m[35mALTER TABLE `users` ADD CONSTRAINT `fk_rails_960e7e39f4`
+FOREIGN KEY (`roles_id`)
+  REFERENCES `roles` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020095127')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGenres (20171020100240)
+  [1m[35m (12.8ms)[0m  [1m[35mCREATE TABLE `genres` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255) NOT NULL, `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020100240')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBooks (20171020100324)
+  [1m[35m (14.5ms)[0m  [1m[35mCREATE TABLE `books` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255) NOT NULL, `description` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (16.8ms)[0m  [1m[35mALTER TABLE `books` ADD `genres_id` bigint[0m
+  [1m[35m (11.4ms)[0m  [1m[35mCREATE  INDEX `index_books_on_genres_id`  ON `books` (`genres_id`) [0m
+  [1m[35m (22.7ms)[0m  [1m[35mALTER TABLE `books` ADD CONSTRAINT `fk_rails_b7b4ffea79`
+FOREIGN KEY (`genres_id`)
+  REFERENCES `genres` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020100324')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20171020100632)
+  [1m[35m (16.3ms)[0m  [1m[35mCREATE TABLE `reviews` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `review_text` text NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (18.2ms)[0m  [1m[35mALTER TABLE `reviews` ADD `books_id` bigint[0m
+  [1m[35m (15.8ms)[0m  [1m[35mCREATE  INDEX `index_reviews_on_books_id`  ON `reviews` (`books_id`) [0m
+  [1m[35m (16.6ms)[0m  [1m[35mALTER TABLE `reviews` ADD CONSTRAINT `fk_rails_5dee2ea40e`
+FOREIGN KEY (`books_id`)
+  REFERENCES `books` (`id`)
+[0m
+  [1m[35m (21.8ms)[0m  [1m[35mALTER TABLE `reviews` ADD `users_id` bigint[0m
+  [1m[35m (16.0ms)[0m  [1m[35mCREATE  INDEX `index_reviews_on_users_id`  ON `reviews` (`users_id`) [0m
+  [1m[35m (18.6ms)[0m  [1m[35mALTER TABLE `reviews` ADD CONSTRAINT `fk_rails_7e57f7262e`
+FOREIGN KEY (`users_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020100632')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRatings (20171020101551)
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE TABLE `ratings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `rating_number` int, `rating_text` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020101551')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBookRatings (20171020101642)
+  [1m[35m (17.4ms)[0m  [1m[35mCREATE TABLE `book_ratings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `rating_comment` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (18.6ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD `books_id` bigint[0m
+  [1m[35m (18.8ms)[0m  [1m[35mCREATE  INDEX `index_book_ratings_on_books_id`  ON `book_ratings` (`books_id`) [0m
+  [1m[35m (18.7ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD CONSTRAINT `fk_rails_a41e38dd5f`
+FOREIGN KEY (`books_id`)
+  REFERENCES `books` (`id`)
+[0m
+  [1m[35m (17.2ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD `ratings_id` bigint[0m
+  [1m[35m (17.5ms)[0m  [1m[35mCREATE  INDEX `index_book_ratings_on_ratings_id`  ON `book_ratings` (`ratings_id`) [0m
+  [1m[35m (15.1ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD CONSTRAINT `fk_rails_95111ca541`
+FOREIGN KEY (`ratings_id`)
+  REFERENCES `ratings` (`id`)
+[0m
+  [1m[35m (19.4ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD `users_id` bigint[0m
+  [1m[35m (20.9ms)[0m  [1m[35mCREATE  INDEX `index_book_ratings_on_users_id`  ON `book_ratings` (`users_id`) [0m
+  [1m[35m (22.7ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD CONSTRAINT `fk_rails_50d9af1f31`
+FOREIGN KEY (`users_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020101642')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2017-10-20 10:25:45', '2017-10-20 10:25:45')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateReadersGroups (20171020103012)
+  [1m[35m (17.9ms)[0m  [1m[35mCREATE TABLE `readers_groups` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020103012')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReadersGroupMembers (20171020103507)
+  [1m[35m (15.7ms)[0m  [1m[35mCREATE TABLE `readers_group_members` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (17.4ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD `groups_id` bigint[0m
+  [1m[35m (11.3ms)[0m  [1m[35mCREATE  INDEX `index_readers_group_members_on_groups_id`  ON `readers_group_members` (`groups_id`) [0m
+  [1m[35m (15.8ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD CONSTRAINT `fk_rails_c07f5b8be9`
+FOREIGN KEY (`groups_id`)
+  REFERENCES `groups` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateReadersGroupMembers (20171020103507)
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE `readers_group_members` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateReadersGroups (20171020103012)
+  [1m[35m (3.0ms)[0m  [1m[35mDROP TABLE `readers_groups`[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM `schema_migrations` WHERE `schema_migrations`.`version` = '20171020103012'[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateReadersGroups (20171020103012)
+  [1m[35m (15.7ms)[0m  [1m[35mCREATE TABLE `readers_groups` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020103012')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReadersGroupMembers (20171020103507)
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE `readers_group_members` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateReadersGroupMembers (20171020103507)
+  [1m[35m (17.6ms)[0m  [1m[35mCREATE TABLE `readers_group_members` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (15.8ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD `readers_groups_id` bigint[0m
+  [1m[35m (15.2ms)[0m  [1m[35mCREATE  INDEX `index_readers_group_members_on_readers_groups_id`  ON `readers_group_members` (`readers_groups_id`) [0m
+  [1m[35m (23.0ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD CONSTRAINT `fk_rails_9d583edbe8`
+FOREIGN KEY (`readers_groups_id`)
+  REFERENCES `readers_groups` (`id`)
+[0m
+  [1m[35m (17.5ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD `users_id` bigint[0m
+  [1m[35m (15.7ms)[0m  [1m[35mCREATE  INDEX `index_readers_group_members_on_users_id`  ON `readers_group_members` (`users_id`) [0m
+  [1m[35m (16.3ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD CONSTRAINT `fk_rails_425f37a9d8`
+FOREIGN KEY (`users_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (15.0ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD `roles_id` bigint[0m
+  [1m[35m (14.9ms)[0m  [1m[35mCREATE  INDEX `index_readers_group_members_on_roles_id`  ON `readers_group_members` (`roles_id`) [0m
+  [1m[35m (19.3ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD CONSTRAINT `fk_rails_a969d37330`
+FOREIGN KEY (`roles_id`)
+  REFERENCES `roles` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020103507')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to AddDeviseToUsers (20171020104058)
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE `users` ADD `email` varchar(255) DEFAULT '' NOT NULL[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (16.8ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY) ENGINE=InnoDB[0m
+  [1m[35m (15.3ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateRoles (20171020095019)
+  [1m[35m (14.7ms)[0m  [1m[35mCREATE TABLE `roles` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255) NOT NULL, `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020095019')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20171020095127)
+  [1m[35m (16.4ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `first_name` varchar(255) NOT NULL, `middle_name` varchar(255), `last_name` varchar(255) NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (17.9ms)[0m  [1m[35mALTER TABLE `users` ADD `roles_id` bigint[0m
+  [1m[35m (12.5ms)[0m  [1m[35mCREATE  INDEX `index_users_on_roles_id`  ON `users` (`roles_id`) [0m
+  [1m[35m (21.3ms)[0m  [1m[35mALTER TABLE `users` ADD CONSTRAINT `fk_rails_960e7e39f4`
+FOREIGN KEY (`roles_id`)
+  REFERENCES `roles` (`id`)
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020095127')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGenres (20171020100240)
+  [1m[35m (19.3ms)[0m  [1m[35mCREATE TABLE `genres` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255) NOT NULL, `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020100240')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBooks (20171020100324)
+  [1m[35m (15.8ms)[0m  [1m[35mCREATE TABLE `books` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255) NOT NULL, `description` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (18.0ms)[0m  [1m[35mALTER TABLE `books` ADD `genres_id` bigint[0m
+  [1m[35m (17.7ms)[0m  [1m[35mCREATE  INDEX `index_books_on_genres_id`  ON `books` (`genres_id`) [0m
+  [1m[35m (22.4ms)[0m  [1m[35mALTER TABLE `books` ADD CONSTRAINT `fk_rails_b7b4ffea79`
+FOREIGN KEY (`genres_id`)
+  REFERENCES `genres` (`id`)
+[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020100324')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20171020100632)
+  [1m[35m (11.5ms)[0m  [1m[35mCREATE TABLE `reviews` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `review_text` text NOT NULL, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (16.3ms)[0m  [1m[35mALTER TABLE `reviews` ADD `books_id` bigint[0m
+  [1m[35m (14.5ms)[0m  [1m[35mCREATE  INDEX `index_reviews_on_books_id`  ON `reviews` (`books_id`) [0m
+  [1m[35m (18.4ms)[0m  [1m[35mALTER TABLE `reviews` ADD CONSTRAINT `fk_rails_5dee2ea40e`
+FOREIGN KEY (`books_id`)
+  REFERENCES `books` (`id`)
+[0m
+  [1m[35m (19.0ms)[0m  [1m[35mALTER TABLE `reviews` ADD `users_id` bigint[0m
+  [1m[35m (18.2ms)[0m  [1m[35mCREATE  INDEX `index_reviews_on_users_id`  ON `reviews` (`users_id`) [0m
+  [1m[35m (19.3ms)[0m  [1m[35mALTER TABLE `reviews` ADD CONSTRAINT `fk_rails_7e57f7262e`
+FOREIGN KEY (`users_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020100632')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRatings (20171020101551)
+  [1m[35m (17.2ms)[0m  [1m[35mCREATE TABLE `ratings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `rating_number` int, `rating_text` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020101551')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBookRatings (20171020101642)
+  [1m[35m (14.5ms)[0m  [1m[35mCREATE TABLE `book_ratings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `rating_comment` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (18.0ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD `books_id` bigint[0m
+  [1m[35m (17.9ms)[0m  [1m[35mCREATE  INDEX `index_book_ratings_on_books_id`  ON `book_ratings` (`books_id`) [0m
+  [1m[35m (20.8ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD CONSTRAINT `fk_rails_a41e38dd5f`
+FOREIGN KEY (`books_id`)
+  REFERENCES `books` (`id`)
+[0m
+  [1m[35m (19.5ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD `ratings_id` bigint[0m
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE  INDEX `index_book_ratings_on_ratings_id`  ON `book_ratings` (`ratings_id`) [0m
+  [1m[35m (26.3ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD CONSTRAINT `fk_rails_95111ca541`
+FOREIGN KEY (`ratings_id`)
+  REFERENCES `ratings` (`id`)
+[0m
+  [1m[35m (15.4ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD `users_id` bigint[0m
+  [1m[35m (16.1ms)[0m  [1m[35mCREATE  INDEX `index_book_ratings_on_users_id`  ON `book_ratings` (`users_id`) [0m
+  [1m[35m (22.6ms)[0m  [1m[35mALTER TABLE `book_ratings` ADD CONSTRAINT `fk_rails_50d9af1f31`
+FOREIGN KEY (`users_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020101642')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReadersGroups (20171020103012)
+  [1m[35m (13.4ms)[0m  [1m[35mCREATE TABLE `readers_groups` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `description` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020103012')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReadersGroupMembers (20171020103507)
+  [1m[35m (16.5ms)[0m  [1m[35mCREATE TABLE `readers_group_members` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (19.6ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD `readers_groups_id` bigint[0m
+  [1m[35m (16.0ms)[0m  [1m[35mCREATE  INDEX `index_readers_group_members_on_readers_groups_id`  ON `readers_group_members` (`readers_groups_id`) [0m
+  [1m[35m (29.6ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD CONSTRAINT `fk_rails_9d583edbe8`
+FOREIGN KEY (`readers_groups_id`)
+  REFERENCES `readers_groups` (`id`)
+[0m
+  [1m[35m (22.7ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD `users_id` bigint[0m
+  [1m[35m (17.8ms)[0m  [1m[35mCREATE  INDEX `index_readers_group_members_on_users_id`  ON `readers_group_members` (`users_id`) [0m
+  [1m[35m (16.1ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD CONSTRAINT `fk_rails_425f37a9d8`
+FOREIGN KEY (`users_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (18.9ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD `roles_id` bigint[0m
+  [1m[35m (17.5ms)[0m  [1m[35mCREATE  INDEX `index_readers_group_members_on_roles_id`  ON `readers_group_members` (`roles_id`) [0m
+  [1m[35m (23.1ms)[0m  [1m[35mALTER TABLE `readers_group_members` ADD CONSTRAINT `fk_rails_a969d37330`
+FOREIGN KEY (`roles_id`)
+  REFERENCES `roles` (`id`)
+[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020103507')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddDeviseToUsers (20171020104058)
+  [1m[35m (14.8ms)[0m  [1m[35mALTER TABLE `users` ADD `email` varchar(255) DEFAULT '' NOT NULL[0m
+  [1m[35m (14.6ms)[0m  [1m[35mALTER TABLE `users` ADD `encrypted_password` varchar(255) DEFAULT '' NOT NULL[0m
+  [1m[35m (14.6ms)[0m  [1m[35mALTER TABLE `users` ADD `reset_password_token` varchar(255)[0m
+  [1m[35m (20.0ms)[0m  [1m[35mALTER TABLE `users` ADD `reset_password_sent_at` datetime[0m
+  [1m[35m (21.6ms)[0m  [1m[35mALTER TABLE `users` ADD `remember_created_at` datetime[0m
+  [1m[35m (17.3ms)[0m  [1m[35mALTER TABLE `users` ADD `sign_in_count` int DEFAULT 0 NOT NULL[0m
+  [1m[35m (16.5ms)[0m  [1m[35mALTER TABLE `users` ADD `current_sign_in_at` datetime[0m
+  [1m[35m (18.7ms)[0m  [1m[35mALTER TABLE `users` ADD `last_sign_in_at` datetime[0m
+  [1m[35m (17.2ms)[0m  [1m[35mALTER TABLE `users` ADD `current_sign_in_ip` varchar(255)[0m
+  [1m[35m (15.6ms)[0m  [1m[35mALTER TABLE `users` ADD `last_sign_in_ip` varchar(255)[0m
+  [1m[35m (12.3ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_email`  ON `users` (`email`) [0m
+  [1m[35m (16.0ms)[0m  [1m[35mCREATE UNIQUE INDEX `index_users_on_reset_password_token`  ON `users` (`reset_password_token`) [0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020104058')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2017-10-20 10:42:33', '2017-10-20 10:42:33')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK(1675556888461229655, 0)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateActiveAdminComments (20171020104352)
+  [1m[35m (22.4ms)[0m  [1m[35mCREATE TABLE `active_admin_comments` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `namespace` varchar(255), `body` text, `resource_type` varchar(255), `resource_id` bigint, `author_type` varchar(255), `author_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_active_admin_comments_on_resource_type_and_resource_id`  (`resource_type`, `resource_id`),  INDEX `index_active_admin_comments_on_author_type_and_author_id`  (`author_type`, `author_id`)) ENGINE=InnoDB[0m
+  [1m[35m (14.0ms)[0m  [1m[35mCREATE  INDEX `index_active_admin_comments_on_namespace`  ON `active_admin_comments` (`namespace`) [0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20171020104352')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT RELEASE_LOCK(1675556888461229655)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/" for 127.0.0.1 at 2017-10-20 16:15:00 +0530
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb (3.4ms)
+Completed 200 OK in 18ms (Views: 8.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2017-10-20 16:15:28 +0530
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2017-10-20 16:15:28 +0530
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/devise/shared/_links.erb (2.9ms)
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (28.6ms)
+Completed 200 OK in 7632ms (Views: 7616.6ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2017-10-20 16:15:52 +0530
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ERb54PNVAgh3R6bpHhUr4uheK70KrSDTumXkIWPrfS46rxAR+4+riT3QKeomaCb69Kf3gvh1L0zDeNXIGy571Q==", "user"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`email` = 'admin@example.com' ORDER BY `users`.`id` ASC LIMIT 1[0m
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.3ms)
+
+
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ERb54PNVAgh3R6bpHhUr4uheK70KrSDTumXkIWPrfS46rxAR+4+riT3QKeomaCb69Kf3gvh1L0zDeNXIGy571Q==", "user"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/devise/shared/_links.erb (1.4ms)
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (36.7ms)
+Completed 200 OK in 265ms (Views: 119.2ms | ActiveRecord: 0.0ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'admin@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO `users` (`created_at`, `updated_at`, `email`, `encrypted_password`) VALUES ('2017-10-20 10:46:28', '2017-10-20 10:46:28', 'admin@example.com', '$2a$11$oGCE3wa3Dy4/Sg0jw8tn2.dgsUhmTijHl7bPO2pZdU/LaXlHAiQdS')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'admin@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO `users` (`first_name`, `last_name`, `created_at`, `updated_at`, `email`, `encrypted_password`) VALUES ('Admin', 'User', '2017-10-20 10:47:43', '2017-10-20 10:47:43', 'admin@example.com', '$2a$11$ng3uUAbfmFDCWV4q.79PwO2uikpnPng2ccrWEPMKItCzmowJE9ay6')[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/admin/login" for 127.0.0.1 at 2017-10-20 16:18:03 +0530
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"SUriGyTxWjyd5mmvwAACxUOcangfsa04g/ohnzjdZLpi8wvqLCvzvddx5qz4fQ/dX2W2R+1poqf65xB2QBhiQQ==", "user"=>{"email"=>"admin@example.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`email` = 'admin@example.com' ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[33mUPDATE `users` SET `current_sign_in_at` = '2017-10-20 10:48:03', `last_sign_in_at` = '2017-10-20 10:48:03', `current_sign_in_ip` = '127.0.0.1', `last_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2017-10-20 10:48:03' WHERE `users`.`id` = 1[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://0.0.0.0:3000/admin
+Completed 302 Found in 206ms (ActiveRecord: 4.4ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2017-10-20 16:18:03 +0530
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/page/index.html.arb
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/page/index.html.arb (342.9ms)
+Completed 200 OK in 350ms (Views: 346.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/admin/users" for 127.0.0.1 at 2017-10-20 16:18:07 +0530
+Processing by Admin::UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/resource/index.html.arb
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT  1 FROM `users` LIMIT 30 OFFSET 0) subquery_for_count[0m
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT  1 FROM `users` LIMIT 30 OFFSET 0) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `users`[0m
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT  1 FROM `users` LIMIT 30 OFFSET 0) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  `users`.* FROM `users` ORDER BY `users`.`id` desc LIMIT 30 OFFSET 0[0m
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/resource/index.html.arb (111.3ms)
+Completed 200 OK in 127ms (Views: 116.9ms | ActiveRecord: 3.7ms)
+
+
+Started GET "/admin/users/new" for 127.0.0.1 at 2017-10-20 16:18:16 +0530
+Processing by Admin::UsersController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/resource/new.html.arb
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/resource/new.html.arb (87.3ms)
+Completed 200 OK in 97ms (Views: 94.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/admin/users" for 127.0.0.1 at 2017-10-20 16:18:18 +0530
+Processing by Admin::UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/resource/index.html.arb
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT  1 FROM `users` LIMIT 30 OFFSET 0) subquery_for_count[0m
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT  1 FROM `users` LIMIT 30 OFFSET 0) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM `users`[0m
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT  1 FROM `users` LIMIT 30 OFFSET 0) subquery_for_count[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  `users`.* FROM `users` ORDER BY `users`.`id` desc LIMIT 30 OFFSET 0[0m
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/resource/index.html.arb (101.4ms)
+Completed 200 OK in 111ms (Views: 107.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2017-10-20 16:18:42 +0530
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"oM4+W77/dVqst0KV9DhEcSjvCqUrPWL9tots4tQEDgbuwGRYHqt8knTumiKmam4towpu7xg8rYe+wBCGxGF6GQ=="}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://0.0.0.0:3000/admin
+Completed 302 Found in 8ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2017-10-20 16:18:42 +0530
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2017-10-20 16:18:42 +0530
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/devise/shared/_links.erb (1.1ms)
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/activeadmin-1.1.0/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (19.9ms)
+Completed 200 OK in 93ms (Views: 90.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-10-20 16:18:46 +0530
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb (2.8ms)
+Completed 200 OK in 7ms (Views: 4.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-10-20 16:24:11 +0530
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/users/sign_in"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/users/sign-in" for 127.0.0.1 at 2017-10-20 16:24:20 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/users/sign-in"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/home/index" for 127.0.0.1 at 2017-10-20 16:24:57 +0530
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 470ms (Views: 468.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-10-20 16:25:03 +0530
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/saurabh/.rvm/gems/ruby-2.4.0/gems/railties-5.1.4/lib/rails/templates/rails/welcome/index.html.erb (2.7ms)
+Completed 200 OK in 7ms (Views: 4.6ms | ActiveRecord: 0.0ms)
+
+

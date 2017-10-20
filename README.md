@@ -1,2 +1,24 @@
-# readers_club
-The Readers Club is a large book club that has members from over 20 countries. Readers Club currently holds meet-ups regionally where members share their latest reads and review them. They also plan book reading sessions and manage over e-mail. Readers Club want to make the process of sharing and learning global and want to bring this forum online. Readers Club wants to build a social networking website with Ruby on Rails as REST and front end using either Ruby on rails or any front end technology.
+# README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

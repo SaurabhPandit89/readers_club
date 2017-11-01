@@ -1,0 +1,73 @@
+Tables required for Reader's Club:
+
+1. users
+   - id
+   - first name
+   - middle name
+   - last name
+   - email
+   - role_id
+   - created_at
+   - updated_at
+
+2. genres
+   - id
+   - name
+   - description
+   - created_at
+   - updated_at
+
+3. books
+   - id
+   - name
+   - description
+   - genre_id
+   - created_at
+   - updated_at
+
+4. reviews
+   - id
+   - review_text
+   - book_id
+   - user_id
+   - created_at
+   - updated_at
+
+ 5. ratings
+   - id
+   - rating
+   - created_at
+   - updated_at
+
+ 6. book_ratings
+   - id
+   - book_id
+   - rating_id
+   - user_id
+   - rating_comment
+   - created_at
+   - updated_at
+
+   merge this to reviews
+
+ 7. readers_group
+   - id
+   - name
+   - description
+   - created_at
+   - updated_at
+
+ 8. readers_group_members
+   - id
+   - group_id
+   - user_id
+   - role_id
+   - created_at
+   - updated_at
+
+9. roles
+   - id
+   - name
+   - description
+   - created_at
+   - updated_at

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Readers group:</strong>
+  <%= @readers_group_member.readers_group %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @readers_group_member.user %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @readers_group_member.role %>
+</p>
+
+<%= link_to 'Edit', edit_readers_group_member_path(@readers_group_member) %> |
+<%= link_to 'Back', readers_group_members_path %>

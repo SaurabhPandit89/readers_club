@@ -1,0 +1,10 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @genre.name
+%p
+  %strong Description:
+  = @genre.description
+= link_to 'Edit', edit_genre_path(@genre)
+|
+= link_to 'Back', genres_path

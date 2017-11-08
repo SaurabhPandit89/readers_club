@@ -1,0 +1,5 @@
+%center
+  %h1 Welcome to Readers Club
+  %div
+    = link_to 'Books', books_path
+    | #{link_to 'Logout', destroy_user_session_path, {method: :delete}}

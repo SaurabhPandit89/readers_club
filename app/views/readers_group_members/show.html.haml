@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Readers group:
+  = @readers_group_member.readers_group
+%p
+  %strong User:
+  = @readers_group_member.user
+%p
+  %strong Role:
+  = @readers_group_member.role
+= link_to 'Edit', edit_readers_group_member_path(@readers_group_member)
+|
+= link_to 'Back', readers_group_members_path

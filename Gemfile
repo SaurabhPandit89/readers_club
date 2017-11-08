@@ -35,7 +35,8 @@ gem 'devise', '~> 4.3.0'
 gem 'activeadmin', '~> 1.1.0'
 # Use Bootstrap, for easy UI
 gem 'bootstrap', '~> 4.0.0.beta2'
-
+# Use Haml for templating
+gem 'haml-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

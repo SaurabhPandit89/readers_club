@@ -1,0 +1,17 @@
+= form_with(model: rating, local: true) do |form|
+  - if rating.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(rating.errors.count, "error")
+        prohibited this rating from being saved:
+      %ul
+        - rating.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :rating_number
+    = form.number_field :rating_number, id: :rating_rating_number
+  .field
+    = form.label :rating_text
+    = form.text_field :rating_text, id: :rating_rating_text
+  .actions
+    = form.submit

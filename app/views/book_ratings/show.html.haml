@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Rating comment:
+  = @book_rating.rating_comment
+%p
+  %strong Book:
+  = @book_rating.book
+%p
+  %strong User:
+  = @book_rating.user
+%p
+  %strong Rating:
+  = @book_rating.rating
+= link_to 'Edit', edit_book_rating_path(@book_rating)
+|
+= link_to 'Back', book_ratings_path

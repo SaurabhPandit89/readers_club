@@ -1,0 +1,10 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @readers_group.name
+%p
+  %strong Description:
+  = @readers_group.description
+= link_to 'Edit', edit_readers_group_path(@readers_group)
+|
+= link_to 'Back', readers_groups_path

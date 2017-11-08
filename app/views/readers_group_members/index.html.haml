@@ -1,0 +1,20 @@
+%p#notice= notice
+%h1 Readers Group Members
+%table
+  %thead
+    %tr
+      %th Readers group
+      %th User
+      %th Role
+      %th{:colspan => "3"}
+  %tbody
+    - @readers_group_members.each do |readers_group_member|
+      %tr
+        %td= readers_group_member.readers_group
+        %td= readers_group_member.user
+        %td= readers_group_member.role
+        %td= link_to 'Show', readers_group_member
+        %td= link_to 'Edit', edit_readers_group_member_path(readers_group_member)
+        %td= link_to 'Destroy', readers_group_member, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Readers Group Member', new_readers_group_member_path

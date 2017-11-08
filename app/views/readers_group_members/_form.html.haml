@@ -1,0 +1,20 @@
+= form_with(model: readers_group_member, local: true) do |form|
+  - if readers_group_member.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(readers_group_member.errors.count, "error")
+        prohibited this readers_group_member from being saved:
+      %ul
+        - readers_group_member.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :readers_group_id
+    = form.text_field :readers_group_id, id: :readers_group_member_readers_group_id
+  .field
+    = form.label :user_id
+    = form.text_field :user_id, id: :readers_group_member_user_id
+  .field
+    = form.label :role_id
+    = form.text_field :role_id, id: :readers_group_member_role_id
+  .actions
+    = form.submit

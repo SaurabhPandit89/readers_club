@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/hisea/devise-bootstrap-views.git
+  revision: 34e2c7b5d5c22295a2cea4265c4f31deba29be18
+  branch: bootstrap4
+  specs:
+    devise-bootstrap-views (1.0.0.alpha1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -293,6 +300,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   devise (~> 4.3.0)
+  devise-bootstrap-views!
   faker
   haml-rails
   jbuilder (~> 2.5)

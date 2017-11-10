@@ -31,6 +31,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 # Use devise, for authentication solution
 gem 'devise', '~> 4.3.0'
+# Use devise-bootstrap-views for Bootstrap formatted devise views
+gem 'devise-bootstrap-views', git: 'https://github.com/hisea/devise-bootstrap-views.git', branch: 'bootstrap4'
 # Use Active Admin, to have and admin module up and ready quickly
 gem 'activeadmin', '~> 1.1.0'
 # Use Bootstrap, for easy UI

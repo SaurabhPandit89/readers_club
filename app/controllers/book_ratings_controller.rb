@@ -1,5 +1,5 @@
 class BookRatingsController < InheritedResources::Base
-
+  layout 'layouts/admin'
   private
 
     def book_rating_params

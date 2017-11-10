@@ -1,5 +1,5 @@
 class ReadersGroupMembersController < InheritedResources::Base
-
+  layout 'layouts/admin'
   private
 
     def readers_group_member_params

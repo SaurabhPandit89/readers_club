@@ -1,5 +1,5 @@
 class BooksController < InheritedResources::Base
-
+  layout 'layouts/admin'
   private
 
     def book_params

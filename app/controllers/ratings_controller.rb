@@ -1,5 +1,5 @@
 class RatingsController < InheritedResources::Base
-
+  layout 'layouts/admin'
   private
 
     def rating_params

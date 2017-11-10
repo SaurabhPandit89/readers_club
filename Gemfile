@@ -39,6 +39,8 @@ gem 'bootstrap', '~> 4.0.0.beta2'
 gem 'jquery-rails'
 # Use Haml for templating
 gem 'haml-rails'
+# Use Faker
+gem 'faker'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

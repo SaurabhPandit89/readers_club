@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 20171101105053) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "genres_id"
-    t.index ["genres_id"], name: "index_books_on_genres_id"
+    t.bigint "genre_id"
+    t.index ["genre_id"], name: "index_books_on_genre_id"
   end
 
   create_table "genres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20171101105053) do
   add_foreign_key "book_ratings", "books", column: "books_id"
   add_foreign_key "book_ratings", "ratings", column: "ratings_id"
   add_foreign_key "book_ratings", "users", column: "users_id"
-  add_foreign_key "books", "genres", column: "genres_id"
+  add_foreign_key "books", "genres"
   add_foreign_key "readers_group_members", "readers_groups", column: "readers_groups_id"
   add_foreign_key "readers_group_members", "roles", column: "roles_id"
   add_foreign_key "readers_group_members", "users", column: "users_id"

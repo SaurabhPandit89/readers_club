@@ -6,6 +6,6 @@ class CreateBooks < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_reference :books, :genres, foreign_key: true
+    add_reference :books, :genre, foreign_key: true
   end
 end

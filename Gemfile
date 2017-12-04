@@ -43,6 +43,8 @@ gem 'jquery-rails'
 gem 'haml-rails'
 # Use Faker
 gem 'faker'
+# Use ratyrate to manage book ratings and reviews
+gem 'ratyrate'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -3,8 +3,15 @@
   %strong Name:
   = @book.name
 %p
+  %strong Genre
+  = @book.genre.name
+%p
   %strong Description:
   = @book.description
+%p
+  %strong Rating:
+  = rating_for @book, 'name', space: true
+
 = link_to 'Edit', edit_book_path(@book)
 |
 = link_to 'Back', books_path

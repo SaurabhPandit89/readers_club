@@ -17,5 +17,5 @@ end
 # Create Books
 genres = Genre.all
 50.times do
-  Book.create(name: Faker::Book.title, description: Faker::Lorem.paragraph, genre_id: genres.sample)
+  Book.create(name: Faker::Book.title, description: Faker::Lorem.paragraph, genre_id: genres.sample.id)
 end

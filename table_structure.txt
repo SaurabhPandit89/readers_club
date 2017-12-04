@@ -25,39 +25,14 @@ Tables required for Reader's Club:
    - created_at
    - updated_at
 
-4. reviews
-   - id
-   - review_text
-   - book_id
-   - user_id
-   - created_at
-   - updated_at
-
- 5. ratings
-   - id
-   - rating
-   - created_at
-   - updated_at
-
- 6. book_ratings
-   - id
-   - book_id
-   - rating_id
-   - user_id
-   - rating_comment
-   - created_at
-   - updated_at
-
-   merge this to reviews
-
- 7. readers_group
+ 4. readers_group
    - id
    - name
    - description
    - created_at
    - updated_at
 
- 8. readers_group_members
+ 5. readers_group_members
    - id
    - group_id
    - user_id
@@ -65,7 +40,7 @@ Tables required for Reader's Club:
    - created_at
    - updated_at
 
-9. roles
+ 6. roles
    - id
    - name
    - description

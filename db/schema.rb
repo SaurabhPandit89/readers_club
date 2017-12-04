@@ -26,18 +26,6 @@ ActiveRecord::Schema.define(version: 20171101105053) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "book_ratings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "rating_comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "books_id"
-    t.bigint "ratings_id"
-    t.bigint "users_id"
-    t.index ["books_id"], name: "index_book_ratings_on_books_id"
-    t.index ["ratings_id"], name: "index_book_ratings_on_ratings_id"
-    t.index ["users_id"], name: "index_book_ratings_on_users_id"
-  end
-
   create_table "books", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.text "description"
@@ -50,13 +38,6 @@ ActiveRecord::Schema.define(version: 20171101105053) do
   create_table "genres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "ratings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "rating_number"
-    t.string "rating_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -77,16 +58,6 @@ ActiveRecord::Schema.define(version: 20171101105053) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text "review_text", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "books_id"
-    t.bigint "users_id"
-    t.index ["books_id"], name: "index_reviews_on_books_id"
-    t.index ["users_id"], name: "index_reviews_on_users_id"
   end
 
   create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -119,14 +90,9 @@ ActiveRecord::Schema.define(version: 20171101105053) do
     t.index ["roles_id"], name: "index_users_on_roles_id"
   end
 
-  add_foreign_key "book_ratings", "books", column: "books_id"
-  add_foreign_key "book_ratings", "ratings", column: "ratings_id"
-  add_foreign_key "book_ratings", "users", column: "users_id"
   add_foreign_key "books", "genres"
   add_foreign_key "readers_group_members", "readers_groups", column: "readers_groups_id"
   add_foreign_key "readers_group_members", "roles", column: "roles_id"
   add_foreign_key "readers_group_members", "users", column: "users_id"
-  add_foreign_key "reviews", "books", column: "books_id"
-  add_foreign_key "reviews", "users", column: "users_id"
   add_foreign_key "users", "roles", column: "roles_id"
 end

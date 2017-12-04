@@ -1,1 +1,9 @@
 @import "bootstrap";
+
+body {
+  padding-top: 56px;
+}
+.center-area {
+  box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.75);
+  min-height: 700px;
+}

@@ -1,5 +1,4 @@
 class GenresController < InheritedResources::Base
-  layout 'layouts/admin'
   private
 
     def genre_params

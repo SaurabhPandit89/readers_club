@@ -1,22 +1,15 @@
 %p#notice= notice
-%h1 Books
-%table
-  %thead
-    %tr
-      %th{:width => '10%'} Name
-      %th{:width => '10%'} Genre
-      %th{:width => '60%'} Description
-      %th{:width => '10%'} Rating
-      %th{:width => '10%', :colspan => "3"}
-  %tbody
-    - @books.each do |book|
-      %tr
-        %td= book.name
-        %td= book.genre.name
-        %td= book.description
-        %td= rating_for book, 'name', space: true
-        %td= link_to 'Show', book
-        %td= link_to 'Edit', edit_book_path(book)
-        %td= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Book', new_book_path
+- book_count = @books.count
+- @books.in_groups((book_count/3)+1, false) do |books|
+  .card-deck
+    - books.each do |book|
+      .card.bg-light.mb-3{style: 'max-width: 20rem;'}
+        = image_tag 'cropped-favicon.png', :alt => "Card image cap", class: 'card-img-top'
+        .card-body.text-secondary
+          %h4.card-title= book.name
+          %p.card-text{style: 'font-style: italic;'}= book.genre.name
+          %p.card-text= book.description
+        .card-footer
+          %small.text-muted= rating_for book, 'name', space: true
+      %br
+  %br

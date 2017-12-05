@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  mount Thredded::Engine => '/forum'
   post '/rate' => 'rater#create', :as => 'rate'
 
   devise_for :admin_users, {class_name: 'User'}.merge(ActiveAdmin::Devise.config)

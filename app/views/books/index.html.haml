@@ -1,3 +1,5 @@
+- content_for :title, ' | Books'
+
 %p#notice= notice
 - book_count = @books.count
 - @books.in_groups((book_count/3)+1, false) do |books|

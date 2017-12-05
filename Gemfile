@@ -47,6 +47,9 @@ gem 'faker'
 gem 'ratyrate'
 # Use has_friendship for friendships between users
 gem 'has_friendship'
+# Use Thredded to add forum functionality
+gem 'thredded', '~> 0.13.8'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

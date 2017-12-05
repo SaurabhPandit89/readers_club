@@ -1,0 +1,15 @@
+= bootstrap_devise_error_messages!
+%h1= t('.sign_up', default: 'Sign up')
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { role: 'form' }) do |f|
+  .form-group
+    = f.label :email
+    = f.email_field :email, autofocus: true, class: 'form-control'
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: 'form-control'
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: 'form-control'
+  .form-group
+    = f.submit t('.sign_up', default: 'Sign up'), class: 'btn btn-primary'
+= render 'devise/shared/links'

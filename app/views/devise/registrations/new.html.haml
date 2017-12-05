@@ -1,0 +1,31 @@
+= bootstrap_devise_error_messages!
+.row
+  .col-md-4.offset-md-4
+    .card
+      .card-header.text-center
+        %h3= t('.sign_up', default: 'Sign up')
+      #accordion{ role: "tablist" }
+        = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { role: 'form' }) do |f|
+          #collapseOne.collapse.show{ role: "tabpanel", 'aria-labelledby' => "headingOne", data: {parent: "#accordion"} }
+            .card-body
+              .form-row
+                .form-group.col-md-6
+                  = f.text_field :first_name, autofocus: true, class: 'form-control', placeholder: :first_name
+                .form-group.col-md-6
+                  = f.text_field :last_name, class: 'form-control', placeholder: :last_name
+              .form-row
+                .form-group.col-md-12
+                  = f.email_field :email, class: 'form-control', placeholder: :email
+              .form-row
+                .form-group.col-md-6
+                  = f.password_field :password, class: 'form-control', placeholder: :password
+                .form-group.col-md-6
+                  = f.password_field :password_confirmation, class: 'form-control', placeholder: :password_confirmation
+              .form-group= link_to 'Next', "#collapseTwo", data: { toggle: "collapse" }, 'aria-expanded' => true, 'aria-controls' => "collapseTwo", class: "btn btn-primary"
+          #collapseTwo.collapse{ role: "tabpanel", 'aria-labelledby' => "headingOne", data: { parent: "#accordion" } }
+            .card-body
+              .form-group= link_to 'Previous', "#collapseOne", data: { toggle: "collapse" }, 'aria-expanded' => true, 'aria-controls' => "collapseOne", class: "btn btn-primary"
+              %p= 'TODO: List genres selection'
+              .form-group
+                = f.submit t('.sign_up', default: 'Sign up'), class: 'btn btn-primary btn-block'
+      .card-footer= render 'devise/shared/links'

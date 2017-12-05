@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   ratyrate_rater
+
+  validates :username, uniqueness: true, format: { with: /^\w*$/, message: "only allows letters" }
 end

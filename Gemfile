@@ -45,6 +45,8 @@ gem 'haml-rails'
 gem 'faker'
 # Use ratyrate to manage book ratings and reviews
 gem 'ratyrate'
+# Use Thredded to add forum functionality
+gem 'thredded', '~> 0.13.8'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -3,6 +3,7 @@
   .card-body
     %h4.card-title= "#{current_user.first_name} #{current_user.last_name}"
   %ul.list-group.list-group-flush
+    %li.list-group-item= current_user.username
     %li.list-group-item= current_user.email
   .card-body
     %p= link_to 'Edit Profile', edit_user_registration_path, class: 'card-link'

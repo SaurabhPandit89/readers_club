@@ -45,7 +45,8 @@ gem 'haml-rails'
 gem 'faker'
 # Use ratyrate to manage book ratings and reviews
 gem 'ratyrate'
-
+# Use has_friendship for friendships between users
+gem 'has_friendship'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -38,5 +38,9 @@
           .col-sm-3
             = # right side content
       - else
-        %p#notice= notice
-        = yield
+        .row
+          .col-sm-1
+          .col-sm-10
+            %p#notice= notice
+            = yield
+          .col-sm-1

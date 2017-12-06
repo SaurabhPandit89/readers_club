@@ -1,2 +1,13 @@
-%h1 Welcome to Readers Club
-%div
+- content_for :title, ' | Home'
+%center
+  %h1 Welcome to Readers Club
+
+  #carouselExampleSlidesOnly.carousel.slide{"data-ride" => "carousel"}
+    .carousel-inner
+      .carousel-item.active
+        = image_tag 'books-1.jpg', style: "height: 600px", alt: "First slide", class: 'd-block w-100'
+      .carousel-item
+        = image_tag 'books-2.jpg', style: "height: 600px", alt: "Second slide", class: 'd-block w-100'
+      .carousel-item
+        = image_tag 'books-3.jpg', style: "height: 600px", alt: "Third slide", class: 'd-block w-100'
+

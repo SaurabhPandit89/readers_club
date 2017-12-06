@@ -23,24 +23,24 @@
             = link_to 'Books', books_path, class: 'nav-item nav-link'
       %ul.nav.justify-content-end
         - if user_signed_in?
-          %li.nav-item= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'navbar-brand'
+          %li.nav-item= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'navbar-brand'
         - else
-          %li.nav-item= link_to 'Register', new_user_registration_path, class: 'navbar-brand'
-          %li.nav-item= link_to 'Login', new_user_session_path, class: 'navbar-brand'
+          %li.nav-item= link_to 'Sign Up', new_user_registration_path, class: 'navbar-brand'
+          %li.nav-item= link_to 'Sign In', new_user_session_path, class: 'navbar-brand'
     %div.container-fluid
       - if user_signed_in?
         .row
           .col-sm-2
             = render 'layouts/profile'
           .col-sm-7
-            %p#notice= notice
+            - unless notice.blank?
+              %p.alert.alert-secondary#notice= notice
             = yield
           .col-sm-3
             = # right side content
       - else
         .row
-          .col-sm-1
-          .col-sm-10
-            %p#notice= notice
+          .col-md-10.offset-md-1
+            - unless notice.blank?
+              %p.alert.alert-secondary#notice= notice
             = yield
-          .col-sm-1

@@ -1,9 +1,17 @@
+- content_for :title, ' | Reset Password'
+
 = bootstrap_devise_error_messages!
-%h1= t('.forgot_your_password', default: 'Forgot your password?')
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, role: 'form' }) do |f|
-  .form-group
-    = f.label :email
-    = f.email_field :email, autofocus: true, class: 'form-control'
-  .form-group
-    = f.submit t('.send_me_reset_password_instructions', default: 'Send me reset password instructions'), class: 'btn btn-primary'
-= render 'devise/shared/links'
+.row
+  .col-md-4.offset-md-4
+    .card
+      .card-header.text-center
+        %h1 Reset Password
+      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, role: 'form' }) do |f|
+        .card-body
+          .form-row
+            .form-group.col-md-12
+              = f.email_field :email, autofocus: true, class: 'form-control', placeholder: :email
+          .form-row
+            .form-group.col-md-12
+              = f.submit t('.send_me_reset_password_instructions', default: 'Send me reset password instructions'), class: 'btn btn-primary'
+      .card-footer= render 'devise/shared/links'

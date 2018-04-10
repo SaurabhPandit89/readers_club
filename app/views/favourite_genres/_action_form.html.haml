@@ -1,0 +1,7 @@
+- fav_genre = current_user.favourite_genres.find_by(genre_id: genre.id)
+- if fav_genre
+  = link_to 'Remove from Favourites', favourite_genre_path(fav_genre), method: :delete, class: 'btn btn-danger'
+- else
+  = form_with(model: @favourite_genre, local: true) do |f|
+    = f.hidden_field :genre_id, value: genre.id
+    = f.submit 'Mark as Favourite', class: 'btn btn-success'

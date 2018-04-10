@@ -8,5 +8,7 @@ class User < ApplicationRecord
 
   ratyrate_rater
 
+  has_many :favourite_genres
+
   validates :username, uniqueness: true, format: { with: /\A\w*\z/, message: "only allows letters" }
 end

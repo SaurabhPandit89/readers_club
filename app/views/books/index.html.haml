@@ -5,8 +5,8 @@
   .card-deck
     - books.each do |book|
       .card.bg-light.mb-3{style: 'max-width: 20rem;'}
-        = image_tag 'cropped-favicon.png', :alt => "Card image cap", class: 'card-img-top'
         .card-header
+          = image_tag 'cropped-favicon.png', :alt => "Card image cap", class: 'card-img-top'
           %h4.card-title
             - if current_user.admin?
               = link_to edit_book_path(book) do

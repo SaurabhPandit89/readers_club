@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171205132829) do
+ActiveRecord::Schema.define(version: 20180410174216) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.string "namespace"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(version: 20171205132829) do
     t.datetime "updated_at", null: false
     t.bigint "genre_id"
     t.index ["genre_id"], name: "index_books_on_genre_id"
+  end
+
+  create_table "favourite_genres", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "genre_id"
+    t.index ["genre_id"], name: "index_favourite_genres_on_genre_id"
+    t.index ["user_id", "genre_id"], name: "index_favourite_genres_on_user_id_and_genre_id"
+    t.index ["user_id"], name: "index_favourite_genres_on_user_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|

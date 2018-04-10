@@ -7,7 +7,7 @@
     %li.list-group-item= current_user.email
   .card-body
     %p= link_to 'Edit Profile', edit_user_registration_path, class: 'card-link'
-    %p= link_to 'Edit Genre Selection', '#', class: 'card-link'
+    %p= link_to 'Select Favourite Genres', favourite_genres_path, class: 'card-link'
     - if current_user.admin?
       %p= link_to 'Add New Genre', new_genre_path, class: 'card-link'
       %p= link_to 'Add New Book', new_book_path, class: 'card-link'

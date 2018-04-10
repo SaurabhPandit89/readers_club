@@ -1,0 +1,13 @@
+- @genres.in_groups_of(3, false) do |genres|
+  .card-deck
+    - genres.each do |genre|
+      .card.bg-light.mb-3{style: 'max-width: 20rem;'}
+        .card-header
+          %h4.card-title= genre.name
+        .card-body.text-secondary
+          %p.card-text
+            %em= genre.description
+        .card-footer
+          = render 'action_form', genre: genre
+      %br
+  %br

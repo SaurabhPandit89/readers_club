@@ -1,10 +1,16 @@
 %p#notice= notice
-%p
-  %strong Name:
-  = @genre.name
-%p
-  %strong Description:
-  = @genre.description
-= link_to 'Edit', edit_genre_path(@genre)
-|
-= link_to 'Back', genres_path
+.row
+  .col
+    .card
+      .card-header.text-center
+        %h3= 'Genre'
+      .card-body
+        %p
+          %strong Name:
+          = @genre.name
+        %p
+          %strong Description:
+          = @genre.description
+      .card-footer
+        = link_to 'Edit', edit_genre_path(@genre), class: 'card-link'
+        = link_to 'Back', genres_path, class: 'card-link'

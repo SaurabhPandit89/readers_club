@@ -7,11 +7,11 @@
       %ul
         - genre.errors.full_messages.each do |message|
           %li= message
-  .field
+  .form-group
     = form.label :name
-    = form.text_field :name, id: :genre_name
-  .field
+    = form.text_field :name, autofocus: true, class: 'form-control'
+  .form-group
     = form.label :description
-    = form.text_field :description, id: :genre_description
-  .actions
-    = form.submit
+    = form.text_area :description, class: 'form-control'
+  .form-group
+    = form.submit genre.new_record? ? 'Create' : 'Update', class: 'btn btn-primary'

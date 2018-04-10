@@ -7,11 +7,14 @@
       %ul
         - book.errors.full_messages.each do |message|
           %li= message
-  .field
+  .form-group
     = form.label :name
-    = form.text_field :name, id: :book_name
-  .field
+    = form.text_field :name, autofocus: true, class: 'form-control'
+  .form-group
     = form.label :description
-    = form.text_area :description, id: :book_description
-  .actions
-    = form.submit
+    = form.text_area :description, class: 'form-control'
+  .form-group
+    = form.label :genre_id
+    = form.collection_select :genre_id, Genre.all, :id, :name, {}, class: 'form-control'
+  .form-group
+    = form.submit book.new_record? ? 'Create' : 'Update', class: 'btn btn-primary'

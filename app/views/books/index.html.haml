@@ -1,15 +1,20 @@
 - content_for :title, ' | Books'
 
 %p#notice= notice
-- book_count = @books.count
-- @books.in_groups((book_count/3)+1, false) do |books|
+- @books.in_groups_of(3, false) do |books|
   .card-deck
     - books.each do |book|
       .card.bg-light.mb-3{style: 'max-width: 20rem;'}
         = image_tag 'cropped-favicon.png', :alt => "Card image cap", class: 'card-img-top'
+        .card-header
+          %h4.card-title
+            - if current_user.admin?
+              = link_to edit_book_path(book) do
+                = "&#x270E;".html_safe
+            = book.name
         .card-body.text-secondary
-          %h4.card-title= book.name
-          %p.card-text{style: 'font-style: italic;'}= book.genre.name
+          %p.card-text
+            %em= book.genre.name
           %p.card-text= book.description
         .card-footer
           %small.text-muted= rating_for book, 'name', space: true

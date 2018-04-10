@@ -1,3 +1,9 @@
-%h1 New Book
-= render 'form', book: @book
-= link_to 'Back', books_path
+.row
+  .col
+    .card
+      .card-header.text-center
+        %h3= 'New Book'
+      .card-body
+        = render 'form', book: @book
+      .card-footer
+        = link_to 'Back', books_path, class: 'card-link'

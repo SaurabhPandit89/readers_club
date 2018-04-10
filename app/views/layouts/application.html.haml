@@ -30,6 +30,7 @@
           %li.nav-item= link_to 'Register', new_user_registration_path, class: 'navbar-brand'
           %li.nav-item= link_to 'Login', new_user_session_path, class: 'navbar-brand'
     %div.container-fluid
+      = flash_messages
       - if user_signed_in?
         .row
           .col-sm-2

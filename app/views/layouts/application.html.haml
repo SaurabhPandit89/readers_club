@@ -30,16 +30,15 @@
           %li.nav-item= link_to 'Register', new_user_registration_path, class: 'navbar-brand'
           %li.nav-item= link_to 'Login', new_user_session_path, class: 'navbar-brand'
     %div.container-fluid
-      = flash_messages
       - if user_signed_in?
         .row
           .col-sm-2
             = render 'layouts/profile'
           .col-sm-7
-            %p#notice= notice
+            %p#notice= flash_messages
             = yield
           .col-sm-3
             = # right side content
       - else
-        %p#notice= notice
+        %p#notice= flash_messages
         = yield

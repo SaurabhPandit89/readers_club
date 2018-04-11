@@ -7,7 +7,7 @@
         .card-body.text-secondary
           %p.card-text
             %em= genre.description
-        .card-footer
+        .card-footer{id: "genre_#{genre.id}"}
           = render 'action_form', genre: genre
       %br
   %br

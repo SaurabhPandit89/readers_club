@@ -14,6 +14,9 @@
     = form.label :description
     = form.text_area :description, class: 'form-control'
   .form-group
+    = form.label :author
+    = form.text_field :author, class: 'form-control'
+  .form-group
     = form.label :genre_id
     = form.collection_select :genre_id, Genre.all, :id, :name, {}, class: 'form-control'
   .form-group

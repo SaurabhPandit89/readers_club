@@ -3,6 +3,6 @@ class BooksController < InheritedResources::Base
   private
 
     def book_params
-      params.require(:book).permit(:name, :description)
+      params.require(:book).permit(:name, :description, :author, :genre_id)
     end
 end

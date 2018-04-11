@@ -12,6 +12,8 @@
               = link_to edit_book_path(book) do
                 = "&#x270E;".html_safe
             = book.name
+          %p
+            %em= "- by #{book.author}"
         .card-body.text-secondary
           %p.card-text
             %em= book.genre.name

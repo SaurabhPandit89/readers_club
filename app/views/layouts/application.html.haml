@@ -23,6 +23,11 @@
             = link_to 'Books', books_path, class: 'nav-item nav-link'
             - if current_user.admin?
               = link_to 'Genres', genres_path, class: 'nav-item nav-link'
+            = form_with url: users_path, method: :get, local: true do |f|
+              .input-group
+                = search_field_tag :search_term, nil, placeholder: 'Find Readers', class: 'form-control'
+                .input-group-btn
+                  = f.submit 'Search', class: 'btn'
       %ul.nav.justify-content-end
         - if user_signed_in?
           %li.nav-item= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'navbar-brand'

@@ -1,6 +1,6 @@
 var cardHeader = $('.card-footer#genre_' + '<%= favourite_genre.genre_id %>').siblings('.card-header');
 cardHeader.before('<%=j flash_messages %>');
-cardHeader.siblings('.alert').fadeOut(5000);
+cardHeader.siblings('.alert').fadeOut(5000).remove();
 <%- if status == 200 %>
   $('.card-footer#genre_' + '<%= favourite_genre.genre_id %>').html('<%=j render 'action_form', genre: favourite_genre.genre %>');
 <%- end %>

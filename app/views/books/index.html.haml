@@ -11,11 +11,11 @@
               = link_to edit_book_path(book) do
                 = "&#x270E;".html_safe
             = book.name
-          %p
+          %h5.card-subtitle.text-muted
             %em= "- by #{book.author}"
         .card-body.text-secondary
           %p.card-text
-            %em= book.genre.name
+            %em= "Genre: #{book.genre.name}"
           %p.card-text= book.description
         .card-footer
           %small.text-muted= rating_for book, 'name', space: true

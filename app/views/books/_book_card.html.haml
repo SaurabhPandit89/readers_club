@@ -1,0 +1,18 @@
+.card.bg-light.mb-3{ id: "book_#{book.id}", style: 'max-width: 20rem;'}
+  .card-header
+    = image_tag 'cropped-favicon.png', :alt => "Card image cap", class: 'card-img-top'
+    %h4.card-title
+      - if current_user.admin?
+        = link_to edit_book_path(book) do
+          = "&#x270E;".html_safe
+      = book.name
+    %h5.card-subtitle.text-muted
+      %em= "- by #{book.author}"
+  .card-body.text-secondary
+    %p.card-text
+      %em= "Genre: #{book.genre.name}"
+    %p.card-text= book.description
+  .card-footer
+    %small.text-muted= rating_for book, 'name', space: true
+  .card-footer.action-buttons
+    = render 'footer', book: book

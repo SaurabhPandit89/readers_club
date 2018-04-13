@@ -1,0 +1,4 @@
+$('#book_' + '<%= book.id %>' + ' .card-footer.action-buttons').html("<%=j render 'books/footer', book: book %>");
+var cardHeader = $('#book_' + '<%= book.id %>' + ' .card-header');
+cardHeader.before('<%=j flash_messages %>');
+cardHeader.siblings('.alert').fadeOut(5000);

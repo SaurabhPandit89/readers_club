@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411133445) do
+ActiveRecord::Schema.define(version: 20180413081927) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.string "namespace"
@@ -135,6 +135,17 @@ ActiveRecord::Schema.define(version: 20180411133445) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reading_histories", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "book_id"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_reading_histories_on_book_id"
+    t.index ["user_id", "book_id"], name: "index_reading_histories_on_user_id_and_book_id", unique: true
+    t.index ["user_id"], name: "index_reading_histories_on_user_id"
   end
 
   create_table "roles", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|

@@ -3,21 +3,6 @@
 - @books.in_groups_of(3, false) do |books|
   .card-deck
     - books.each do |book|
-      .card.bg-light.mb-3{style: 'max-width: 20rem;'}
-        .card-header
-          = image_tag 'cropped-favicon.png', :alt => "Card image cap", class: 'card-img-top'
-          %h4.card-title
-            - if current_user.admin?
-              = link_to edit_book_path(book) do
-                = "&#x270E;".html_safe
-            = book.name
-          %h5.card-subtitle.text-muted
-            %em= "- by #{book.author}"
-        .card-body.text-secondary
-          %p.card-text
-            %em= "Genre: #{book.genre.name}"
-          %p.card-text= book.description
-        .card-footer
-          %small.text-muted= rating_for book, 'name', space: true
+      = render 'book_card', book: book
       %br
   %br

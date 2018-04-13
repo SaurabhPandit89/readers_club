@@ -1,0 +1,2 @@
+class ReadingHistory < ApplicationRecord
+end

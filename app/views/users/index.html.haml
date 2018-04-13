@@ -1,22 +1,6 @@
 - content_for :title, ' | Readers'
 
-- @users.in_groups_of(3, false).each do |users|
-  .card-deck
-    - users.each do |user|
-      .card.bg-light.mb-3{style: 'max-width: 20rem;'}
-        .card-header
-          = image_tag 'cropped-favicon.png', :alt => "Card image cap", class: 'card-img-top'
-          %h4.card-title
-            = "#{user.first_name} #{user.last_name}"
-          %h5.card-subtitle.text-muted
-            %em= user.username
-        .card-body.text-secondary
-          %p.card-text
-            = "Books Read: 5" # TODO: Read books count to be dynamic
-          %p.card-text
-            = "Books in Wishlist: 5" # TODO: Books in Wishlist count to be dynamic
-        .card-footer
-          %small.text-muted
-            = link_to '+ Add as friend', '#', class: 'btn btn-success' # TODO: Implement functionality
-      %br
-  %br
+- if @users.present?
+  = render 'user_cards', users: @users
+- else
+  = "There are no users found with search term '#{params[:search_term]}'"

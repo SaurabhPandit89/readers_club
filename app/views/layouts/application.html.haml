@@ -23,6 +23,7 @@
             = link_to 'Books', books_path, class: 'nav-item nav-link'
             - if current_user.admin?
               = link_to 'Genres', genres_path, class: 'nav-item nav-link'
+            = link_to 'Friends', friends_user_path(current_user), class: 'nav-item nav-link'
             = form_with url: users_path, method: :get, local: true do |f|
               .input-group
                 = f.search_field :search_term, placeholder: 'Find Readers', class: 'form-control'

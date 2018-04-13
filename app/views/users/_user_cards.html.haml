@@ -1,0 +1,6 @@
+- users.in_groups_of(3, false).each do |group_users|
+  .card-deck
+    - group_users.each do |user|
+      = render 'user_card', user: user
+      %br
+  %br

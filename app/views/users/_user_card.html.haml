@@ -1,0 +1,34 @@
+.card.bg-light.mb-3{ id: "user_#{user.id}", style: 'max-width: 20rem;' }
+  .card-header
+    = image_tag 'cropped-favicon.png', :alt => "Card image cap", class: 'card-img-top'
+    %h4.card-title
+      = "#{user.first_name} #{user.last_name}"
+    %h5.card-subtitle.text-muted
+      %em= user.username
+  .card-body.text-secondary
+    %p.card-text
+      = "Books Read: 5" # TODO: Read books count to be dynamic
+    %p.card-text
+      = "Books in Wishlist: 5" # TODO: Books in Wishlist count to be dynamic
+  - if current_user != user
+    .card-footer
+      %small.text-muted
+        - if current_user.friends_with?(user)
+          = form_with url: unfriend_users_path, method: :post, remote: true do |f|
+            = f.hidden_field :user_id, value: user.id
+            = f.submit '- Unfriend', class: 'btn btn-danger'
+        - elsif current_user.friend_request_received?(user)
+          = form_with url: accept_friendship_users_path, method: :post, remote: true do |f|
+            = f.hidden_field :user_id, value: user.id
+            = f.submit '✔ Accept', class: 'btn btn-success'
+          = form_with url: decline_friendship_users_path, method: :post, remote: true do |f|
+            = f.hidden_field :user_id, value: user.id
+            = f.submit '× Decline', class: 'btn btn-danger'
+        - elsif current_user.friend_request_sent?(user)
+          = form_with url: cancel_friend_request_users_path, method: :post, remote: true do |f|
+            = f.hidden_field :user_id, value: user.id
+            = f.submit 'Cancel Request', class: 'btn btn-warning'
+        - else
+          = form_with url: request_friendship_users_path, method: :post, remote: true do |f|
+            = f.hidden_field :user_id, value: user.id
+            = f.submit '+ Add as friend', class: 'btn btn-primary'

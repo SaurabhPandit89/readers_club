@@ -1,0 +1,29 @@
+- content_for :title, ' | Friends'
+
+%hr
+%h3
+  Received Friend Requests
+  %span.badge.badge-pill.badge-secondary= @requested_friends.count
+%hr
+- if @requested_friends.present?
+  = render 'user_cards', users: @requested_friends
+- else
+  = 'All of your friend requests have been responded!'
+%hr
+%h3
+  Sent Friend Requests
+  %span.badge.badge-pill.badge-secondary= @pending_friends.count
+%hr
+- if @pending_friends.present?
+  = render 'user_cards', users: @pending_friends
+- else
+  = 'There are no pending requests. You have responded to all friend requests received!'
+%hr
+%h3
+  Friends
+  %span.badge.badge-pill.badge-secondary= @friends.count
+%hr
+- if @friends.present?
+  = render 'user_cards', users: @friends
+- else
+  = 'You have no friends yet!'

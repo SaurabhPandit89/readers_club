@@ -1,0 +1,4 @@
+$('#user_' + '<%= user.id %>').replaceWith("<%=j render 'user_card', user: user %>");
+var cardHeader = $('#user_' + '<%= user.id %>' + ' .card-header');
+cardHeader.before('<%=j flash_messages %>');
+cardHeader.siblings('.alert').fadeOut(5000);

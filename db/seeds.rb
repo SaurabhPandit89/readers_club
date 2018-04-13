@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 if Rails.env.development?
   User.create!(first_name: 'Admin', last_name: 'User', username: 'AdminUser', email: 'admin@example.com', password: 'password', password_confirmation: 'password', admin: true)
-  10.times do |i|
+  20.times do |i|
     User.create!(first_name: 'Common', last_name: "User#{i}", username: "User#{i}", email: "user#{i}@example.com", password: 'password', password_confirmation: 'password', admin: false)
   end
 end

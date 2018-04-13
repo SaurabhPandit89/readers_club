@@ -9,7 +9,14 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :users
+  resources :users do
+    get :friends, on: :member
+    post :request_friendship, on: :collection
+    post :cancel_friend_request, on: :collection
+    post :accept_friendship, on: :collection
+    post :decline_friendship, on: :collection
+    post :unfriend, on: :collection
+  end
   resources :readers_group_members
   resources :readers_groups
   resources :roles

@@ -1,0 +1,10 @@
+- if book.read_by?(current_user)
+  = form_with url: mark_as_unread_reading_histories_path, method: :post, remote: true do |f|
+    = f.hidden_field :book_id, value: book.id
+    = f.submit 'Mark as Unread', class: 'btn btn-danger'
+- else
+  = form_with url: mark_as_read_reading_histories_path, method: :post, remote: true do |f|
+    = f.hidden_field :book_id, value: book.id
+    = f.submit 'Mark as Read', class: 'btn btn-success'
+=# link_to 'Add to Wishlist', '#', class: 'btn btn-primary' # TODO: Future scope
+=# link_to 'Remove fron Wishlist', '#', class: 'btn btn-warning' # TODO: Future scope

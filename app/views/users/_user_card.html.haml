@@ -16,19 +16,19 @@
         - if current_user.friends_with?(user)
           = form_with url: unfriend_users_path, method: :post, remote: true do |f|
             = f.hidden_field :user_id, value: user.id
-            = f.submit '- Unfriend', class: 'btn btn-danger' # TODO: Implement functionality
+            = f.submit '- Unfriend', class: 'btn btn-danger'
         - elsif current_user.friend_request_received?(user)
           = form_with url: accept_friendship_users_path, method: :post, remote: true do |f|
             = f.hidden_field :user_id, value: user.id
-            = f.submit '✔ Accept', class: 'btn btn-success' # TODO: Implement functionality
+            = f.submit '✔ Accept', class: 'btn btn-success'
           = form_with url: decline_friendship_users_path, method: :post, remote: true do |f|
             = f.hidden_field :user_id, value: user.id
-            = f.submit '× Decline', class: 'btn btn-danger' # TODO: Implement functionality
+            = f.submit '× Decline', class: 'btn btn-danger'
         - elsif current_user.friend_request_sent?(user)
           = form_with url: cancel_friend_request_users_path, method: :post, remote: true do |f|
             = f.hidden_field :user_id, value: user.id
-            = f.submit 'Cancel Request', class: 'btn btn-warning' # TODO: Implement functionality
+            = f.submit 'Cancel Request', class: 'btn btn-warning'
         - else
           = form_with url: request_friendship_users_path, method: :post, remote: true do |f|
             = f.hidden_field :user_id, value: user.id
-            = f.submit '+ Add as friend', class: 'btn btn-primary' # TODO: Implement functionality
+            = f.submit '+ Add as friend', class: 'btn btn-primary'

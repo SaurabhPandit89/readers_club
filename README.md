@@ -7,5 +7,5 @@
 	```openssl req -new -newkey rsa:2048 -sha1 -days 365 -nodes -x509 -keyout ~/.ssl/localhost.key -out ~/.ssl/localhost.crt```
 
 3. run rails server
-	```rails s -b 'ssl://localhost:3000?key=/home/saurabhpandit/.ssl/localhost.key&cert=/home/saurabhpandit/.ssl/localhost.crt'```
+	```rails s -b 'ssl://localhost:3000?key=/path/to/.ssl/localhost.key&cert=/path/to/.ssl/localhost.crt'```
 

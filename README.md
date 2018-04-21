@@ -1,24 +1,11 @@
-# README
+## Configure localhost to run on SSL
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. on the linux terminal run
+	```mkdir ~/.ssl```
 
-Things you may want to cover:
+2. create local ssl certificate
+	```openssl req -new -newkey rsa:2048 -sha1 -days 365 -nodes -x509 -keyout ~/.ssl/localhost.key -out ~/.ssl/localhost.crt```
 
-* Ruby version
+3. run rails server
+	```rails s -b 'ssl://localhost:3000?key=/home/saurabhpandit/.ssl/localhost.key&cert=/home/saurabhpandit/.ssl/localhost.crt'```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

@@ -18,7 +18,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -32,6 +32,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 # Use devise, for authentication solution
 gem 'devise', '~> 4.3.0'
+# Use omniauth to login using facebook
+gem 'omniauth-facebook'
 # Use devise-bootstrap-views for Bootstrap formatted devise views
 gem 'devise-bootstrap-views', git: 'https://github.com/hisea/devise-bootstrap-views.git', branch: 'bootstrap4'
 # Use Active Admin, to have and admin module up and ready quickly
@@ -50,6 +52,8 @@ gem 'ratyrate'
 gem 'has_friendship'
 # Use Thredded to add forum functionality
 gem 'thredded', '~> 0.13.8'
+#Use thin for local webserver
+gem 'thin'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413081927) do
+ActiveRecord::Schema.define(version: 20180421074805) do
 
-  create_table "active_admin_comments", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "average_caches", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "average_caches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "rater_id"
     t.string "rateable_type"
     t.bigint "rateable_id"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.index ["rater_id"], name: "index_average_caches_on_rater_id"
   end
 
-  create_table "books", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "books", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.text "description"
     t.datetime "created_at", null: false
@@ -78,14 +78,14 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.index ["friendable_type", "friendable_id"], name: "index_friendships_on_friendable_type_and_friendable_id"
   end
 
-  create_table "genres", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "genres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "overall_averages", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "overall_averages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "rateable_type"
     t.bigint "rateable_id"
     t.float "overall_avg", limit: 24, null: false
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.index ["rateable_type", "rateable_id"], name: "index_overall_averages_on_rateable_type_and_rateable_id"
   end
 
-  create_table "rates", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "rates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "rater_id"
     t.string "rateable_type"
     t.bigint "rateable_id"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.index ["rater_id"], name: "index_rates_on_rater_id"
   end
 
-  create_table "rating_caches", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "rating_caches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "cacheable_type"
     t.bigint "cacheable_id"
     t.float "avg", limit: 24, null: false
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.index ["cacheable_type", "cacheable_id"], name: "index_rating_caches_on_cacheable_type_and_cacheable_id"
   end
 
-  create_table "readers_group_members", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "readers_group_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "readers_groups_id"
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.index ["users_id"], name: "index_readers_group_members_on_users_id"
   end
 
-  create_table "readers_groups", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "readers_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.index ["user_id"], name: "index_reading_histories_on_user_id"
   end
 
-  create_table "roles", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.string "description"
     t.datetime "created_at", null: false
@@ -379,7 +379,7 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.index ["user_id", "postable_id"], name: "thredded_user_topic_read_states_user_postable", unique: true
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "first_name", null: false
     t.string "middle_name"
     t.string "last_name", null: false
@@ -398,10 +398,19 @@ ActiveRecord::Schema.define(version: 20180413081927) do
     t.string "last_sign_in_ip"
     t.boolean "admin"
     t.string "username", default: "", null: false
+    t.string "provider"
+    t.string "uid"
+    t.string "name"
+    t.text "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["roles_id"], name: "index_users_on_roles_id"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "books", "genres"
+  add_foreign_key "readers_group_members", "readers_groups", column: "readers_groups_id"
+  add_foreign_key "readers_group_members", "roles", column: "roles_id"
+  add_foreign_key "readers_group_members", "users", column: "users_id"
+  add_foreign_key "users", "roles", column: "roles_id"
 end

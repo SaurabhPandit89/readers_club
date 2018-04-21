@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   mount Thredded::Engine => '/forum'
   post '/rate' => 'rater#create', :as => 'rate'
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
   devise_for :admin_users, {class_name: 'User'}.merge(ActiveAdmin::Devise.config)
   ActiveAdmin.routes(self)
-
-  devise_for :users
 
   resources :users do
     get :friends, on: :member
